@@ -1,0 +1,40 @@
+.ts-card {
+  width: 250px;
+  background: white;
+  padding: 5px;
+  padding-top: 20px;
+  border-radius: 20px;
+  margin: auto;
+  -webkit-box-shadow: 0px 0px 30px 3px rgba(0, 0, 0, 0.219);
+          box-shadow: 0px 0px 30px 3px rgba(0, 0, 0, 0.219);
+  height: 100%;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.ts-card:hover {
+  background: #ff80e3;
+  -webkit-transform: scale(0.9);
+          transform: scale(0.9);
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.ts-card .ts-card-img {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.ts-card .ts-card-img img {
+  width: 70%;
+}
+
+.ts-card .ts-card-desc {
+  text-align: center;
+}
+
+.ts-card .ts-card-desc h3 {
+  text-transform: uppercase;
+}
+/*# sourceMappingURL=TransportCard.css.map */

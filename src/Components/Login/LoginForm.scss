@@ -1,0 +1,37 @@
+#login-page{
+    .form-area{
+        width:380px;
+        margin:auto;
+        margin-top:100px;
+        box-shadow: 0px 0px 3px 3px rgb(180, 180, 180);;
+        padding:30px;
+        font-style: italic;
+        border-radius: 5px;
+        &>h4{
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+        input{
+            border:none;
+            border-bottom:1px solid grey;
+            border-radius: none;
+            margin:5px auto 35px auto;
+            color:grey;
+                font-weight: 700;
+                font-style: italic;
+            &[type="submit"]{
+                background:#FF6EDF;
+                width:80%;
+                margin:auto;
+                color:white;
+            }
+            &::placeholder{
+                color:grey;
+                font-weight: 700;
+                font-style: italic;
+            }
+            
+        }
+
+    }
+}

@@ -1,0 +1,33 @@
+nav.navbar {
+  position: fixed;
+  width: 100%;
+  top: 0px;
+  left: 0px;
+  background: transparent  !important;
+  z-index: 100;
+}
+
+nav.navbar .navbar-brand {
+  font-weight: 700;
+  color: #689;
+}
+
+nav.navbar #navbarNav .navbar-nav li a.nav-link {
+  font-weight: 600;
+  padding: 5px 20px;
+  border-radius: 5px;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  margin: 0 5px;
+}
+
+nav.navbar #navbarNav .navbar-nav li a.nav-link:hover {
+  background-color: #ff36d3b7;
+  color: white;
+}
+
+nav.navbar .active {
+  background-color: #ff36d3b7;
+  color: white !important;
+}
+/*# sourceMappingURL=Navbar.css.map */

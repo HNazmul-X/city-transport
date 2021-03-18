@@ -1,0 +1,30 @@
+.ts-card{
+    width:250px;
+    background:white;
+    padding:5px;
+    padding-top: 20px;
+    border-radius: 20px;
+    margin:auto;
+    box-shadow: 0px 0px 30px 3px rgba(0, 0, 0, 0.219);
+    height:100%;
+    transition: 0.3s;
+    cursor: pointer;
+    &:hover{
+        background:#ff80e3;
+        transform: scale(0.9);
+        box-shadow: none;
+    }
+    .ts-card-img{
+        text-align: center;
+        margin-bottom:20px;
+        img{
+            width:70%;
+        }
+    }
+    .ts-card-desc{
+        text-align: center;
+        h3{
+            text-transform: uppercase;
+        }
+    }
+}
