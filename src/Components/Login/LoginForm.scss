@@ -7,6 +7,7 @@
         padding:30px;
         font-style: italic;
         border-radius: 5px;
+        margin-bottom: 60px;
         &>h4{
             font-weight: 700;
             margin-bottom: 30px;
@@ -67,6 +68,22 @@
                     
                 }
             }
+        }
+
+
+        .switch{
+            margin-top: 10px;
+            &:hover{
+                span{
+                    text-decoration: underline;
+                }
+            }
+            span{
+                color:rgb(255, 35, 237);
+                font-weight: 600;
+                cursor: pointer;
+            }
+            
         }
 
     }

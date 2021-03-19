@@ -1,11 +1,15 @@
 import React, { useContext } from 'react';
 import { Link } from "react-router-dom";
 import { UserContext } from '../../App';
+import { signOut } from '../Login/loginManager';
 import "./Navbar.css"
 
 const Navbar = () => {
 
     const [loggedInUser , setLoggedInUser] = useContext(UserContext)
+    const handleSignOut = () => {
+        signOut().then(res=> setLoggedInUser(res))
+    }
 
 
     return (
@@ -40,11 +44,16 @@ const Navbar = () => {
                                     Contact
                                 </Link>
                             </li>
-                            <li className="nav-item">
-                                <Link className="nav-link active" to="/login    ">
-                                    {loggedInUser.displayName ? loggedInUser.displayName : "login"}
-                                </Link>
-                            </li>
+                            {loggedInUser.isLogined && (
+                                <>
+                                    <li className="nav-item">
+                                        <Link className="nav-link" href="#">
+                                            {loggedInUser.displayName}
+                                        </Link>
+                                    </li>{" "}
+                                </>
+                            )}
+                            <li className="nav-item">{loggedInUser.isLogined ? <button onClick={handleSignOut} className="nav-link active">Log out</button> : <Link className="nav-link active" to="/login">Login</Link>}</li>
                         </ul>
                     </div>
                 </div>

@@ -7,6 +7,7 @@
   padding: 30px;
   font-style: italic;
   border-radius: 5px;
+  margin-bottom: 60px;
 }
 
 #login-page .form-area > h4 {
@@ -96,5 +97,19 @@
   background: #ffc3f2;
   -webkit-transform: scale(1.05) translateY(-8px);
           transform: scale(1.05) translateY(-8px);
+}
+
+#login-page .form-area .switch {
+  margin-top: 10px;
+}
+
+#login-page .form-area .switch:hover span {
+  text-decoration: underline;
+}
+
+#login-page .form-area .switch span {
+  color: #ff23ed;
+  font-weight: 600;
+  cursor: pointer;
 }
 /*# sourceMappingURL=LoginForm.css.map */

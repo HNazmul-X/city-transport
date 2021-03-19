@@ -2,17 +2,19 @@ import React, { useContext, useState } from "react";
 import "./LoginForm.css";
 import googleIcon from "../../images/google-icon.svg";
 import fbIcon from "../../images/facebook-3.svg";
-import firebase from "firebase"
-import "firebase/auth"
-import {firebaseConfig} from "./firebase.config"
+import firebase from "firebase";
+import "firebase/auth";
+import { firebaseConfig } from "./firebase.config";
 import { UserContext } from "../../App";
+import { createAccoutWithPassword, loginFrameworkInit, loginWithPassword, signInwithFacebook, signInWithGogle } from "./loginManager";
+import { useHistory, useLocation } from "react-router";
 
-if(!firebase.apps.length){
+if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
 }
 
 const Login = () => {
-    const [isNewUser, setIsNewUser] = useState(false)
+    const [isNewUser, setIsNewUser] = useState(false);
     const [isEmailValid, setIsEmailValid] = useState(true);
     const [isPasswordValid, setIsPasswordValid] = useState(true);
     const [user, setUser] = useState({
@@ -20,7 +22,12 @@ const Login = () => {
         password: "",
         name: "",
     });
-    const [loggedInUser, setLoggedInUser] = useContext(UserContext)
+
+    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+    const history = useHistory();
+    const location = useLocation();
+    let { from } = location.state || { from: { pathname: "/" } };
+    loginFrameworkInit();
 
     const handleFeildChange = (e) => {
         let isFeildValid = true;
@@ -32,113 +39,69 @@ const Login = () => {
             isFeildValid = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/.test(e.target.value);
             setIsPasswordValid(isFeildValid);
         }
-        if(isEmailValid && isPasswordValid){
-            const newUserInfo = {...user}
-            newUserInfo[e.target.name] = e.target.value
-            setUser(newUserInfo)
+        if (isEmailValid && isPasswordValid) {
+            const newUserInfo = { ...user };
+            newUserInfo[e.target.name] = e.target.value;
+            setUser(newUserInfo);
         }
     };
 
-
-    // create account with password and email
-
-    const handleSubmitForm = (e) => {
-        e.preventDefault();
-        if (isEmailValid && isPasswordValid && user.email && user.password) {
-            firebase
-                .auth()
-                .createUserWithEmailAndPassword(user.email, user.password)
-                .then((result) => {
-                    const { displayName, email, photoURL } = result.user;
-                    const signedInUser = {
-                        isSignedIn: true,
-                        displayName: displayName,
-                        email: email,
-                        photoURL: photoURL,
-                    };
-                    setUser(signedInUser);
-                    setLoggedInUser(signedInUser);
+    //Handle form submit
+    const handleFormSubmit = (e) => {
+        if (isNewUser && isEmailValid && isPasswordValid && user.email && user.password) {
+            createAccoutWithPassword(user.email, user.password)
+                .then((res) => {
+                    setResponse(res)
                 })
-                .catch((error) => {
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
-                    // ..
+                .catch((err) => {
+                    console.log(err)
                 });
         }
-    }
+        if (!isNewUser && isEmailValid && isPasswordValid && user.email && user.password) {
+            loginWithPassword(user.email, user.password, user.name)
+                .then((res) => {
+                    setResponse(res)
+                })
+                .catch((err) => {
+                    console.log(err)
+                });
+        }
+        e.preventDefault();
+    };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // sign in with google 
+    // Handle Google sign in
     const handleGoogleSignIn = () => {
-        const GoogleProvider = new firebase.auth.GoogleAuthProvider();
-        firebase
-            .auth()
-            .signInWithPopup(GoogleProvider)
-            .then((result) => {
-                const {displayName, email, photoURL} = result.user
-                const signedInUser = {
-                    isSignedIn: true,
-                    displayName: displayName,
-                    email: email,
-                    photoURL: photoURL,
-                };
-                setUser(signedInUser)
-                setLoggedInUser(signedInUser)
-            })
-            .catch((error) => {
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                var email = error.email;
-                var credential = error.credential;
-                console.log(error)
-            });
-    }
+        signInWithGogle()?.then((res) => {
+            setResponse(res);
+        });
+    };
 
+    // handle facebook sign in
+    const handleFbSignIn = () => {
+        signInwithFacebook()?.then((res) => {
+            setResponse(res);
+        });
+    };
 
-    // sign in with facebook 
-    const handleFacebookSignIn = () => {
-        const fbProvider = new firebase.auth.FacebookAuthProvider();
-        firebase
-            .auth()
-            .signInWithPopup(fbProvider)
-            .then((result) => {
-                setUser(result.user)
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                const email = error.email;
-                const credential = error.credential;
-            });
-    }
-
-
-
+    // handle response
+    const setResponse = (res) => {
+        setUser(res);
+        setLoggedInUser(res);
+        history.replace(from);
+    };
 
     return (
         <div id="login-page">
             <div className="form-area">
                 <h4>Login</h4>
-                <form onClick={handleSubmitForm}>
+                <form onClick={handleFormSubmit}>
+                    {isNewUser && (
+                        <>
+                            <input name="name" onChange={handleFeildChange} className="form-control" type="text" placeholder=" Name" required />
+                            {isEmailValid || <p className=" small text-danger">Enter a valid email</p>}
+                        </>
+                    )}
+
                     <input name="email" onChange={handleFeildChange} className="form-control" type="text" placeholder=" Email" required />
                     {isEmailValid || <p className=" small text-danger">Enter a valid email</p>}
 
@@ -146,14 +109,21 @@ const Login = () => {
                     {isPasswordValid || <p className=" small text-danger">password must contain 6 carachter and atleast 1 digit </p>}
 
                     <input className="form-control " type="submit" />
-
-                    <p className="or-divider">or</p>
-
-                    <div className="login-icons">
-                        <img onClick={handleGoogleSignIn} src={googleIcon} alt="google icon" />
-                        <img onClick={handleFacebookSignIn} src={fbIcon} alt="facebook icon" />
-                    </div>
                 </form>
+                <p className="or-divider">or</p>
+                <div className="login-icons">
+                    <img onClick={handleGoogleSignIn} src={googleIcon} alt="google icon" />
+                    <img onClick={handleFbSignIn} src={fbIcon} alt="facebook icon" />
+                    {isNewUser ? (
+                        <p className="switch">
+                            Already have a account <span onClick={() => setIsNewUser(false)}> login </span>{" "}
+                        </p>
+                    ) : (
+                        <p className="switch">
+                            New User <span onClick={() => setIsNewUser(true)}>sign up</span>
+                        </p>
+                    )}
+                </div>
             </div>
         </div>
     );

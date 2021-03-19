@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router';
 import Destination from '../Destination/Destination';
 import Home from '../Home/Home';
 import Login from "../Login/login"
+import PrivateRoute from './PrivateRoute';
 
 const MyRouter = () => {
     return (
@@ -11,9 +12,9 @@ const MyRouter = () => {
             <Route exact path="/">
                 <Home/>
             </Route>
-            <Route exact path="/destination">
+            <PrivateRoute exact path="/destination">
                 <Destination/>
-            </Route>
+            </PrivateRoute>
             <Route exact path="/login">
                 <Login/>
             </Route>

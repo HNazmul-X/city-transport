@@ -12,16 +12,17 @@ nav.navbar .navbar-brand {
   color: #689;
 }
 
-nav.navbar #navbarNav .navbar-nav li a.nav-link {
+nav.navbar #navbarNav .navbar-nav li a.nav-link, nav.navbar #navbarNav .navbar-nav li button.nav-link {
   font-weight: 600;
   padding: 5px 20px;
   border-radius: 5px;
   -webkit-transition: 0.2s;
   transition: 0.2s;
   margin: 0 5px;
+  border: none;
 }
 
-nav.navbar #navbarNav .navbar-nav li a.nav-link:hover {
+nav.navbar #navbarNav .navbar-nav li a.nav-link:hover, nav.navbar #navbarNav .navbar-nav li button.nav-link:hover {
   background-color: #ff36d3b7;
   color: white;
 }
