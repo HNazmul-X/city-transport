@@ -49,16 +49,16 @@ const Login = () => {
     //Handle form submit
     const handleFormSubmit = (e) => {
         if (isNewUser && isEmailValid && isPasswordValid && user.email && user.password) {
-            createAccoutWithPassword(user.email, user.password)
+            createAccoutWithPassword(user.email, user.password, user.name)
                 .then((res) => {
-                    setResponse(res)
+                    setResponse(res);
                 })
                 .catch((err) => {
-                    console.log(err)
+                    console.log(err);
                 });
         }
         if (!isNewUser && isEmailValid && isPasswordValid && user.email && user.password) {
-            loginWithPassword(user.email, user.password, user.name)
+            loginWithPassword(user.email, user.password)
                 .then((res) => {
                     setResponse(res)
                 })
@@ -94,7 +94,7 @@ const Login = () => {
         <div id="login-page">
             <div className="form-area">
                 <h4>Login</h4>
-                <form onClick={handleFormSubmit}>
+                <form onSubmit={handleFormSubmit}>
                     {isNewUser && (
                         <>
                             <input name="name" onChange={handleFeildChange} className="form-control" type="text" placeholder=" Name" required />

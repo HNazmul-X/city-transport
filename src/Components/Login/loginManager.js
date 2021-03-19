@@ -41,6 +41,7 @@ export const createAccoutWithPassword = (email, password,name) => {
         .createUserWithEmailAndPassword(email, password)
         .then((result) => {
             updateUser(name)
+            debugger
             return returnUserResult(result);
         })
         .catch((error) => {
@@ -103,7 +104,9 @@ const updateUser = (name) => {
     const user = firebase.auth().currentUser;
     user.updateProfile({
         displayName: name,
-    })
+    }).then(
+        console.log("user Created success fylly")
+    )
 }
 
 // retrunt error retult 
