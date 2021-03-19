@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from "react-router-dom";
+import { UserContext } from '../../App';
 import "./Navbar.css"
 
 const Navbar = () => {
+
+    const [loggedInUser , setLoggedInUser] = useContext(UserContext)
+
+
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -37,7 +42,7 @@ const Navbar = () => {
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link active" to="/login    ">
-                                    Login
+                                    {loggedInUser.displayName ? loggedInUser.displayName : "login"}
                                 </Link>
                             </li>
                         </ul>
