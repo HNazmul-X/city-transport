@@ -18,7 +18,7 @@
   border: none;
   border-bottom: 1px solid grey;
   border-radius: none;
-  margin: 5px auto 35px auto;
+  margin: 35px auto 5px auto;
   color: grey;
   font-weight: 700;
   font-style: italic;
@@ -53,5 +53,48 @@
   color: grey;
   font-weight: 700;
   font-style: italic;
+}
+
+#login-page .form-area .or-divider {
+  text-align: center;
+  font-weight: bolder;
+  position: relative;
+  padding: 10px;
+  font-size: 18px;
+  color: grey;
+}
+
+#login-page .form-area .or-divider::after {
+  position: absolute;
+  content: "";
+  top: 22px;
+  width: 100%;
+  height: 3px;
+  background: rgba(128, 128, 128, 0.411);
+  border-radius: 20px;
+  left: 0px;
+  z-index: -1;
+}
+
+#login-page .form-area .login-icons {
+  text-align: center;
+}
+
+#login-page .form-area .login-icons img {
+  width: 60px;
+  padding: 10px;
+  border-radius: 50%;
+  -webkit-box-shadow: 0px 0px 3px 3px #b4b4b4;
+          box-shadow: 0px 0px 3px 3px #b4b4b4;
+  margin: 5px 15px;
+  cursor: pointer;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+#login-page .form-area .login-icons img:hover {
+  background: #ffc3f2;
+  -webkit-transform: scale(1.05) translateY(-8px);
+          transform: scale(1.05) translateY(-8px);
 }
 /*# sourceMappingURL=LoginForm.css.map */
