@@ -1,6 +1,6 @@
 import bikeImg from "../../images/Frame.png"
-import carImg from "../../images//Frame-1.png"
-import busImg from "../../images/Frame-2.png"
+import busImg from "../../images//Frame-1.png"
+import carImg from "../../images/Frame-2.png"
 import trainImg from "../../images/Group.png"
 
 

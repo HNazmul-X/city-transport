@@ -3,13 +3,17 @@ nav.navbar {
   width: 100%;
   top: 0px;
   left: 0px;
-  background: transparent  !important;
   z-index: 100;
+  background: rgba(0, 0, 0, 0.514) !important;
 }
 
 nav.navbar .navbar-brand {
   font-weight: 700;
-  color: #689;
+  color: #b1c5cf;
+}
+
+nav.navbar .navbar-brand:hover {
+  color: white;
 }
 
 nav.navbar #navbarNav .navbar-nav li a.nav-link, nav.navbar #navbarNav .navbar-nav li button.nav-link {
@@ -20,6 +24,7 @@ nav.navbar #navbarNav .navbar-nav li a.nav-link, nav.navbar #navbarNav .navbar-n
   transition: 0.2s;
   margin: 0 5px;
   border: none;
+  color: white;
 }
 
 nav.navbar #navbarNav .navbar-nav li a.nav-link:hover, nav.navbar #navbarNav .navbar-nav li button.nav-link:hover {

@@ -21,6 +21,8 @@ export const signInwithFacebook = () => {
     return loginProgress(fbProvider);
 };
 
+
+
 // login progress
 const loginProgress = (provider) => {
     return firebase
@@ -30,22 +32,20 @@ const loginProgress = (provider) => {
             return returnUserResult(result);
         })
         .catch((error) => {
-            return error;
+           return returnErrorResult(error);
         });
 };
 
 /// create accout with email and password
-export const createAccoutWithPassword = (email, password,name) => {
+export const createAccoutWithPassword = (email, password) => {
     return firebase
         .auth()
         .createUserWithEmailAndPassword(email, password)
         .then((result) => {
-            updateUser(name)
-            debugger
             return returnUserResult(result);
         })
         .catch((error) => {
-            return error;
+           return returnErrorResult(error);
         });
 };
 
@@ -58,7 +58,8 @@ export const loginWithPassword = (email, password) => {
             return returnUserResult(result);
         })
         .catch((error) => {
-            return error;
+            // const errorMassage = error.errorMassage
+            return returnErrorResult(error);
         });
 };
 
@@ -82,6 +83,7 @@ export const signOut = () => {
             return signedInUser;
         })
         .catch((error) => {
+            return returnErrorResult(error)
         });
 };
 
@@ -99,17 +101,32 @@ const returnUserResult = (result) => {
     return signedInUser;
 };
 
-// update user 
-const updateUser = (name) => {
-    const user = firebase.auth().currentUser;
-    user.updateProfile({
-        displayName: name,
-    }).then(
-        console.log("user Created success fylly")
-    )
-}
+
 
 // retrunt error retult 
 const returnErrorResult = (error)=> {
+         const { message, code } = error;
+         const signedInUser = {
+             isLogined: false,
+             displayName: "",
+             email: "",
+             photoURL: "",
+             succes: false,
+             error: true,
+             errorMessage: message,
+             errorCode: code
+         };
+         return signedInUser;
+}
 
+// update user
+export const updateUserInfo = (name) => {
+    const currentUser = firebase.auth().currentUser;
+    currentUser
+        ?.updateProfile({
+            displayName: name
+        })
+        .then(function () {
+            console.log("user updated succesfuly");
+        });
 }

@@ -39,21 +39,16 @@ const Navbar = () => {
                                     Blog
                                 </Link>
                             </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" href="#">
-                                    Contact
-                                </Link>
-                            </li>
-                            {loggedInUser.isLogined && (
+                            {loggedInUser?.isLogined && (
                                 <>
                                     <li className="nav-item">
-                                        <Link className="nav-link" href="#">
-                                            {loggedInUser.displayName}
+                                        <Link title="Logged in User" className="nav-link" href="#">
+                                            {loggedInUser?.displayName}
                                         </Link>
                                     </li>{" "}
                                 </>
                             )}
-                            <li className="nav-item">{loggedInUser.isLogined ? <button onClick={handleSignOut} className="nav-link active">Log out</button> : <Link className="nav-link active" to="/login">Login</Link>}</li>
+                            <li className="nav-item">{loggedInUser?.isLogined ? <button onClick={handleSignOut} className="nav-link active">Log out</button> : <Link className="nav-link active" to="/login">Login</Link>}</li>
                         </ul>
                     </div>
                 </div>

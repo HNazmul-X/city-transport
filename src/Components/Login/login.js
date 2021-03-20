@@ -6,7 +6,7 @@ import firebase from "firebase";
 import "firebase/auth";
 import { firebaseConfig } from "./firebase.config";
 import { UserContext } from "../../App";
-import { createAccoutWithPassword, loginFrameworkInit, loginWithPassword, signInwithFacebook, signInWithGogle } from "./loginManager";
+import { createAccoutWithPassword, loginFrameworkInit, loginWithPassword, signInwithFacebook, signInWithGogle, updateUserInfo } from "./loginManager";
 import { useHistory, useLocation } from "react-router";
 
 if (!firebase.apps.length) {
@@ -49,22 +49,20 @@ const Login = () => {
     //Handle form submit
     const handleFormSubmit = (e) => {
         if (isNewUser && isEmailValid && isPasswordValid && user.email && user.password) {
-            createAccoutWithPassword(user.email, user.password, user.name)
+            createAccoutWithPassword(user.email, user.password)
                 .then((res) => {
-                    setResponse(res);
+                    
+                    updateUserInfo(user.name)
+                    res&&loginWithPassword(user.email, user.password).then((res) => {
+                    setResponse(res, true);
+                    });
                 })
-                .catch((err) => {
-                    console.log(err);
-                });
         }
         if (!isNewUser && isEmailValid && isPasswordValid && user.email && user.password) {
             loginWithPassword(user.email, user.password)
                 .then((res) => {
-                    setResponse(res)
+                    setResponse(res,true)
                 })
-                .catch((err) => {
-                    console.log(err)
-                });
         }
         e.preventDefault();
     };
@@ -72,24 +70,27 @@ const Login = () => {
     // Handle Google sign in
     const handleGoogleSignIn = () => {
         signInWithGogle()?.then((res) => {
-            setResponse(res);
+            setResponse(res, true);
         });
     };
 
     // handle facebook sign in
     const handleFbSignIn = () => {
         signInwithFacebook()?.then((res) => {
-            setResponse(res);
+            setResponse(res, true);
         });
     };
 
     // handle response
-    const setResponse = (res) => {
+    const setResponse = (res, redirect) => {
         setUser(res);
         setLoggedInUser(res);
-        history.replace(from);
+        if(redirect){
+            history.replace(from);
+        };
     };
 
+    
     return (
         <div id="login-page">
             <div className="form-area">
@@ -107,8 +108,8 @@ const Login = () => {
 
                     <input name="password" onChange={handleFeildChange} className="form-control" type="password" placeholder="Password" required />
                     {isPasswordValid || <p className=" small text-danger">password must contain 6 carachter and atleast 1 digit </p>}
-
                     <input className="form-control " type="submit" />
+                    {loggedInUser?.error&& <span className="small text-danger" >{loggedInUser?.errorMessage}</span>}
                 </form>
                 <p className="or-divider">or</p>
                 <div className="login-icons">

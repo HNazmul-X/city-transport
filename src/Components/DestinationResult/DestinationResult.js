@@ -2,24 +2,32 @@ import React from "react";
 import "./DestinationResult.css";
 import peopleIcon from "../../images/people-fill.svg"
 
-const DestinationResult = () => {
-    return (
+const DestinationResult = ({ fromData, selectedTransport }) => {
+    const {name, image} = selectedTransport;
+    const { pickFrom, pickTo, departingDate, returningDate } = fromData
+
+    const prices = [20, 56, 93, 21, 32]
+    return ( 
         <div>
             <div className="datails-box">
-                <p>Mirpur </p>
-                <p>Dhanmondi</p>
-                <p>12/3/21 &rarr; 16/3/21</p>
+                <p>{pickFrom} </p>
+                <p>{pickTo}</p>
+                <p>{departingDate} &rarr; {returningDate}</p>
             </div>
 
-            <div className="ticket-card">
-                <h3>
-                    <img src="https://urben-rider-assingment.web.app/static/media/Frame.2d6146f5.png" alt="" className="ticket-card-image" />
-                    <span>CAR</span>
-                    <img src={peopleIcon} alt="" className="people-icon" />
-                    <span>5</span>
-                    <span className="price">$67</span>
-                </h3>
-            </div>
+            {prices.map(price=> {
+                return(
+                    <div className="ticket-card">
+                    <h3>
+                        <img src={image} alt="" className="ticket-card-image" />
+                        <span>{name}</span>
+                        <img src={peopleIcon} alt="" className="people-icon" />
+                        <span>5</span>
+                        <span className="price">${price}</span>
+                    </h3>
+                </div>
+                )
+            })}
         </div>
     );
 };
