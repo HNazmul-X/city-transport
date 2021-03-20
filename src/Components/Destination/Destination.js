@@ -4,6 +4,7 @@ import mapPlaceHolder from "../../images/Map.png";
 import { useParams } from "react-router";
 import { TransportData } from "../TransportCard/TransportData";
 import DestinationResult from "../DestinationResult/DestinationResult";
+import { Link } from "react-router-dom";
 
 
 const Destination = () => {
@@ -68,7 +69,6 @@ const Destination = () => {
                                     ) : (
                                         <>
                                             <DestinationResult fromData={fromData} selectedTransport={selectedTransport} />{" "}
-                                           
                                         </>
                                     )}
                                 </div>
@@ -85,7 +85,9 @@ const Destination = () => {
                             </div>
                         </>
                     ) : (
-                        <h1>Please goto home page and select an</h1>
+                        <h1 className="alert-danger p-5">
+                            Please goto <Link to="/">home page</Link> and select an transport{" "}
+                        </h1>
                     )}
                 </div>
             </div>

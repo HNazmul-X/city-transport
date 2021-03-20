@@ -17,10 +17,12 @@ const Login = () => {
     const [isNewUser, setIsNewUser] = useState(false);
     const [isEmailValid, setIsEmailValid] = useState(true);
     const [isPasswordValid, setIsPasswordValid] = useState(true);
+    const [isPasswordMatch, setIsPasswordMatch ] = useState(false)
     const [user, setUser] = useState({
         email: "",
         password: "",
         name: "",
+        retypePassword:""
     });
 
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
@@ -39,24 +41,31 @@ const Login = () => {
             isFeildValid = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/.test(e.target.value);
             setIsPasswordValid(isFeildValid);
         }
-        if (isEmailValid && isPasswordValid) {
-            const newUserInfo = { ...user };
-            newUserInfo[e.target.name] = e.target.value;
-            setUser(newUserInfo);
+        if (e.target.name === "retypePassword"){
+            console.log(user.password , e.target.value)
+            if(user.password === e.target.value){
+                setIsPasswordMatch(true)
+            }else if(user.password !== e.target.value){
+                setIsPasswordMatch(false)
+            }
         }
+            if (isEmailValid && isPasswordValid) {
+                const newUserInfo = { ...user };
+                newUserInfo[e.target.name] = e.target.value;
+                setUser(newUserInfo);
+            }
     };
 
     //Handle form submit
     const handleFormSubmit = (e) => {
-        if (isNewUser && isEmailValid && isPasswordValid && user.email && user.password) {
-            createAccoutWithPassword(user.email, user.password)
-                .then((res) => {
-                    
-                    updateUserInfo(user.name)
-                    res&&loginWithPassword(user.email, user.password).then((res) => {
-                    setResponse(res, true);
+        if (isNewUser && isEmailValid && isPasswordValid && user.email && user.password && isPasswordMatch) {
+            createAccoutWithPassword(user.email, user.password).then((res) => {
+                updateUserInfo(user.name);
+                res &&
+                    loginWithPassword(user.email, user.password).then((res) => {
+                        setResponse(res, true);
                     });
-                })
+            });
         }
         if (!isNewUser && isEmailValid && isPasswordValid && user.email && user.password) {
             loginWithPassword(user.email, user.password)
@@ -99,7 +108,6 @@ const Login = () => {
                     {isNewUser && (
                         <>
                             <input name="name" onChange={handleFeildChange} className="form-control" type="text" placeholder=" Name" required />
-                            {isEmailValid || <p className=" small text-danger">Enter a valid email</p>}
                         </>
                     )}
 
@@ -108,8 +116,16 @@ const Login = () => {
 
                     <input name="password" onChange={handleFeildChange} className="form-control" type="password" placeholder="Password" required />
                     {isPasswordValid || <p className=" small text-danger">password must contain 6 carachter and atleast 1 digit </p>}
-                    <input className="form-control " type="submit" />
-                    {loggedInUser?.error&& <span className="small text-danger" >{loggedInUser?.errorMessage}</span>}
+
+                    {isNewUser && (
+                        <>
+                            <input name="retypePassword" onChange={handleFeildChange} className="form-control" type="text" placeholder=" Re-type Password" required />
+                            {!isPasswordMatch && <span className="small text-danger">password Doesn't Match</span> }
+                        </>
+                    )}
+
+                    <input className="form-control " value={isNewUser?"Register":"login"} type="submit" />
+                    {loggedInUser?.error && <span className="small text-danger">{loggedInUser?.errorMessage}</span>}
                 </form>
                 <p className="or-divider">or</p>
                 <div className="login-icons">
