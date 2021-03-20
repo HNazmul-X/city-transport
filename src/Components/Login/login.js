@@ -2,16 +2,10 @@ import React, { useContext, useState } from "react";
 import "./LoginForm.css";
 import googleIcon from "../../images/google-icon.svg";
 import fbIcon from "../../images/facebook-3.svg";
-import firebase from "firebase";
-import "firebase/auth";
-import { firebaseConfig } from "./firebase.config";
 import { UserContext } from "../../App";
 import { createAccoutWithPassword, loginFrameworkInit, loginWithPassword, signInwithFacebook, signInWithGogle, updateUserInfo } from "./loginManager";
 import { useHistory, useLocation } from "react-router";
 
-if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
-}
 
 const Login = () => {
     const [isNewUser, setIsNewUser] = useState(false);
@@ -42,7 +36,6 @@ const Login = () => {
             setIsPasswordValid(isFeildValid);
         }
         if (e.target.name === "retypePassword"){
-            console.log(user.password , e.target.value)
             if(user.password === e.target.value){
                 setIsPasswordMatch(true)
             }else if(user.password !== e.target.value){

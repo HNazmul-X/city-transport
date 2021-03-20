@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./destinatio.css";
-import mapPlaceHolder from "../../images/Map.png";
 import { useParams } from "react-router";
 import { TransportData } from "../TransportCard/TransportData";
 import DestinationResult from "../DestinationResult/DestinationResult";
@@ -16,16 +15,14 @@ const Destination = () => {
     useEffect(()=>{
         const currentTransport = TransportData.find(transport => transport.id === transportId)
         setSelectedTransport(currentTransport);
-    })
+    }, [transportId])
     
     
     const handleFeildChange = (e) => {
         const newData = {...fromData}
-        console.log(e.target.name , e.target.value)
         newData[e.target.name] = e.target.value
         setFromData(newData)
     }
-    console.log(selectedTransport)
 
     const controlFormSubmit = (e) => {
         e.preventDefault()

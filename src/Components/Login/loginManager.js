@@ -127,6 +127,5 @@ export const updateUserInfo = (name) => {
             displayName: name
         })
         .then(function () {
-            console.log("user updated succesfuly");
         });
 }
