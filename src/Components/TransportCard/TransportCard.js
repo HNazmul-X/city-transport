@@ -1,11 +1,13 @@
 import React from "react";
+import { useHistory } from "react-router";
 import "./TransportCard.css";
 
 const TransportCard = ({transport}) => {
-    const { name, image } = transport
+    const { name, image, id } = transport
+    const history = useHistory()
     return (
         <>
-            <div className="ts-card"> {/* ts === transport */}
+            <div onClick={()=> history.push(`/destination/${id}`)} className="ts-card"> {/* ts === transport */}
             
             <div className="ts-card-img">
                 <img src={image} alt=""/>

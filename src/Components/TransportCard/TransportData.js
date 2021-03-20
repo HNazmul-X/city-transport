@@ -5,21 +5,25 @@ import trainImg from "../../images/Group.png"
 
 
 export const TransportData = [
-
     {
-        name:"Bike",
-        image:bikeImg
+        name: "Bike",
+        id: "Wd3cwiwnts",
+        image: bikeImg,
+       
     },
     {
-        name:"Car",
-        image:carImg
+        name: "Car",
+        id: "29hdjdQSn",
+        image: carImg,
     },
     {
-        name:"Bus",
-        image:busImg
+        name: "Bus",
+        id: "29dnmQpx",
+        image: busImg,
     },
     {
-        name:"Train",
-        image:trainImg
+        name: "Train",
+        id: "9WnPnX4nQ",
+        image: trainImg,
     },
-] 
+]; 

@@ -12,7 +12,7 @@ const MyRouter = () => {
             <Route exact path="/">
                 <Home/>
             </Route>
-            <PrivateRoute exact path="/destination">
+            <PrivateRoute exact path="/destination/:transportId">
                 <Destination/>
             </PrivateRoute>
             <Route exact path="/login">

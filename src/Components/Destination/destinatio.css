@@ -1,4 +1,20 @@
 #destination-page {
   padding-top: 80px;
 }
+
+#destination-page .destination-form {
+  -webkit-box-shadow: 1px 1px 3px 1px #00000023, -1px -1px 3px 1px #0000002d;
+          box-shadow: 1px 1px 3px 1px #00000023, -1px -1px 3px 1px #0000002d;
+  padding: 20px;
+  border-radius: 5px;
+  background: #ffe3ea;
+}
+
+#destination-page .destination-form button {
+  background: #FF6EDF;
+  color: white;
+  width: 80%;
+  display: block;
+  margin: auto;
+}
 /*# sourceMappingURL=destinatio.css.map */
