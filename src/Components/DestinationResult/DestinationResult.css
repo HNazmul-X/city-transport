@@ -1,1 +1,63 @@
-/* No CSS *//*# sourceMappingURL=DestinationResult.css.map */
+.datails-box {
+  background: #ff68eb;
+  padding: 20px;
+  color: white;
+  border-radius: 10px;
+}
+
+.datails-box p:nth-child(1) {
+  position: relative;
+  margin-left: 10px;
+}
+
+.datails-box p:nth-child(1)::after {
+  content: "";
+  position: absolute;
+  width: 3px;
+  height: 50px;
+  left: -13px;
+  background: white;
+  top: 5px;
+}
+
+.datails-box p:nth-child(2) {
+  margin-left: 10px;
+  position: relative;
+}
+
+.datails-box p:nth-child(1)::before, .datails-box p:nth-child(2)::before {
+  content: "";
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: white;
+  left: -20px;
+  border-radius: 50%;
+  top: 4px;
+}
+
+.ticket-card {
+  width: 100%;
+  position: relative;
+  background: #ffd4dd;
+  padding: 10px;
+  margin: 10px auto;
+  border-radius: 10px;
+}
+
+.ticket-card .ticket-card-image {
+  width: 80px;
+  margin-right: 10px;
+}
+
+.ticket-card .people-icon {
+  width: 40px;
+  margin-left: 30px;
+}
+
+.ticket-card .price {
+  position: absolute;
+  right: 7px;
+  top: 30px;
+}
+/*# sourceMappingURL=DestinationResult.css.map */

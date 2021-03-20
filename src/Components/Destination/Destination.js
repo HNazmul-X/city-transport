@@ -8,8 +8,11 @@ import DestinationResult from "../DestinationResult/DestinationResult";
 
 const Destination = () => {
     const { transportId } = useParams();
-    const [isResultShow , setIsResultShow] = useState(true)
+    const [isResultShow , setIsResultShow] = useState(false)
     const [selectedTransport, setSelectedTransport] = useState({
+        name: "",
+        id: "",
+        image: "",
         pickFrom: "",
         pickTo: "",
         departingDate: "",
@@ -18,43 +21,54 @@ const Destination = () => {
 
     useEffect(()=>{
         const currentTransport = TransportData.find(transport => transport.id === transportId)
-        setSelectedTransport(currentTransport);
+
+        setSelectedTransport({ ...selectedTransport, ...currentTransport });
     })
+    
+    
+    const handleFeildChange = (e) => {
+        const newData = {...selectedTransport}
+        newData[e.target.name] = e.target.value
+        setSelectedTransport(newData)
+    }
     console.log(selectedTransport)
 
-
-    const controlFrom = () => {
-
-    }
+    
 
     return (
         <>
             <div id="destination-page">
                 <div className="container">
                     <div className="row">
-                        <div className="col-md-4">
-                           {
-                               !isResultShow ? <> <div className="input-feilds">
-                                <div className="destination-form">
-                                    <label htmlFor="pick-from">Pick From</label>
-                                    <input name="pickFrom" type="text" className="form-control mb-3" id="pick-from" />
+                        <form onSubmit={null} className="col-md-4">
+                            {!isResultShow ? (
+                                <>
+                                    {" "}
+                                    <div className="input-feilds">
+                                        <div className="destination-form">
+                                            <label htmlFor="pick-from">Pick From</label>
+                                            <input onClick={handleFeildChange} name="pickFrom" type="text" className="form-control mb-3" id="pick-from" />
 
-                                    <label htmlFor="pick-to">Pick to</label>
-                                    <input name="pickTo" type="text" className="form-control mb-3" id="pick-to" />
+                                            <label htmlFor="pick-to">Pick to</label>
+                                            <input onClick={handleFeildChange} name="pickTo" type="text" className="form-control mb-3" id="pick-to" />
 
-                                    <label htmlFor="pick-to">Departing Date</label>
-                                    <input name="departingDate" type="date" className="form-control mb-3" id="pick-to" />
+                                            <label htmlFor="pick-to">Departing Date</label>
+                                            <input onClick={handleFeildChange} name="departingDate" type="date" className="form-control mb-3" id="pick-to" />
 
-                                    <label htmlFor="pick-to">Returning Date</label>
-                                    <input name="returningDate" type="date" className="form-control mb-3" id="pick-to" />
+                                            <label htmlFor="pick-to">Returning Date</label>
+                                            <input onClick={handleFeildChange} name="returningDate" type="date" className="form-control mb-3" id="pick-to" />
 
-                                    <button className="btn">Search</button>
-                                    <button>{transportId}</button>
-                                </div>
-                            </div> </> : 
-                            <DestinationResult/>
-                           }
-                        </div>
+                                            <button type="submit" className="btn">
+                                                Search
+                                            </button>
+                                            <button>{transportId}</button>
+                                        </div>
+                                    </div>{" "}
+                                </>
+                            ) : (
+                                <DestinationResult />
+                            )}
+                        </form>
 
                         <div className="col-md-8">
                             <iframe
